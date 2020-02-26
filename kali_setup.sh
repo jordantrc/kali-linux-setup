@@ -3,6 +3,8 @@
 # Setup script for Kali pen testing image.
 # Adds additional scripts, files, and binaries.
 
+
+
 local_bin_dir="~/bin/"
 utils_dir="/opt/utils/"
 
