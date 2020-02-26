@@ -26,8 +26,8 @@ curl_get() {
 num_errors=0
 
 # make the necessary directories
-mkdir ${local_bin_dir}
-mkdir -p ${utils_dir}"downloads"
+mkdir $local_bin_dir
+mkdir -p $utils_dir"downloads"
 
 # my scripts
 echo "Installing my scripts"
@@ -41,7 +41,7 @@ curl_get https://raw.githubusercontent.com/jordantrc/enumeration/master/http-sec
 echo "Installing RDPScan by Robert Graham"
 zip_file_location=${utils_dir}"downloads/rdpscan.zip"
 curl_get https://github.com/robertdavidgraham/rdpscan/archive/master.zip ${zip_file_location}
-sudo apt install libssl-dev
+apt install libssl-dev
 
 
 
