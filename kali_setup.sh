@@ -10,7 +10,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 local_bin_dir=$1
-utils_dir="/opt/utils/"
+utils_dir="/opt/utils"
 
 curl_get() {
     url=$1
@@ -31,7 +31,7 @@ curl_get() {
 
 # make the necessary directories
 mkdir ${local_bin_dir}
-mkdir -p ${utils_dir}"downloads"
+sudo mkdir -p ${utils_dir}"/downloads"
 
 # my scripts
 echo "Installing my scripts"
@@ -43,7 +43,7 @@ curl_get https://raw.githubusercontent.com/jordantrc/enumeration/master/http-sec
 
 # other people's work
 echo "Installing RDPScan by Robert Graham"
-zip_file_location=${utils_dir}"downloads/rdpscan.zip"
+zip_file_location=${utils_dir}"/downloads/rdpscan.zip"
 curl_get https://github.com/robertdavidgraham/rdpscan/archive/master.zip ${zip_file_location}
 sudo apt install libssl-dev
 
