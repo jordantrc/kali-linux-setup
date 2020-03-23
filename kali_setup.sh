@@ -61,6 +61,10 @@ sudo mkdir -p ${utils_dir}"/downloads"
 sudo mkdir ${seclists_dir}
 mkdir ${tmp_dir}
 
+# apt packages
+echo "[+] Installing apt packages"
+sudo apt update && sudo apt install crackmapexec openvas
+
 # my scripts
 echo "[+] Installing my scripts"
 curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/masscan.sh ${local_bin_dir}"/masscan.sh"
@@ -116,3 +120,24 @@ cd ${utils_dir}"/downloads/"${impacket_dir}
 sudo mv * ${utils_dir}"/impacket/"
 cd ${utils_dir}"/impacket/"
 test_command "sudo python3 setup.py install" "[+] Impacket installation complete" "[-] Impacket installation failed"
+
+# kerbrute
+# simple - just download the binary from latest releases
+latest_uri=$(curl -L -Ss https://github.com/ropnop/kerbrute/releases/latest \
+| grep "<a href=" \
+| grep -E "kerbrute_linux_amd64" \
+| awk '{$1=$1;print}' \
+| cut -d "=" -f 2 \
+| cut -d " " -f 1 \
+| tr -d \")
+curl_get "https://www.github.com"${latest_uri} ${utils_dir}"/downloads/kerbrute_linux_amd64"
+sudo mkdir ${utils_dir}"/kerbrute"
+sudo mv ${utils_dir}"/downloads/kerbrute_linux_amd64" ${utils_dir}"/kerbrute/kerbrute"
+
+
+# Setup openvas
+echo "[*] setting up OpenVAS"
+sudo greenbone-nvt-sync &
+sudo greenbone-scapdata-sync &
+sudo greenbone-certdata-sync &
+wait
