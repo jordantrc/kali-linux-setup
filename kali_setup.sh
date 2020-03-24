@@ -63,7 +63,7 @@ mkdir ${tmp_dir}
 
 # apt packages
 echo "[+] Installing apt packages"
-sudo apt update && sudo apt install crackmapexec openvas
+sudo apt update && sudo apt install -y crackmapexec openvas libssl-dev ufw
 
 # my scripts
 echo "[+] Installing my scripts"
@@ -71,7 +71,10 @@ curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/massca
 curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/nmap.sh ${local_bin_dir}"/nmap.sh"
 curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/scan_host_list.py ${local_bin_dir}"/scan_host_list.py"
 curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/false_positive_test.sh ${local_bin_dir}"/false_positive_test.sh"
+curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/pipa-route.sh ${local_bin_dir}"/pipa-route.sh"
 curl_get https://raw.githubusercontent.com/jordantrc/enumeration/master/http-security-check.sh ${local_bin_dir}"/http-security-check.sh"
+
+chmod +x ${local_bin_dir}"/*.sh"
 
 # other people's work
 # SecLists - https://github.com/danielmiessler/SecLists
@@ -86,7 +89,6 @@ echo "[+] Installing RDPScan by Robert Graham"
 sudo mkdir -p ${utils_dir}"/rdpscan/src"
 zip_file_location=${utils_dir}"/downloads/rdpscan.zip"
 curl_get https://github.com/robertdavidgraham/rdpscan/archive/master.zip ${zip_file_location}
-sudo apt install libssl-dev
 
 # unzip to src directory
 sudo unzip ${zip_file_location} -d ${utils_dir}"/rdpscan/src"
