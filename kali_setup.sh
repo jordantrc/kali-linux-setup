@@ -51,7 +51,6 @@ fi
 random_dir=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 10)
 local_bin_dir=$1
 utils_dir="/opt/utils"
-seclists_dir="/opt/seclists"
 tmp_dir="/tmp/"$random_dir
 current_user=$(whoami)
 
@@ -63,7 +62,7 @@ mkdir ${tmp_dir}
 
 # apt packages
 echo "[+] Installing apt packages"
-sudo apt update && sudo apt install -y crackmapexec openvas libssl-dev ufw
+sudo apt update && sudo apt install -y crackmapexec openvas libssl-dev ufw seclists
 
 # my scripts
 echo "[+] Installing my scripts"
@@ -74,22 +73,16 @@ curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/false_
 curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/pipa-route.sh ${local_bin_dir}"/pipa-route.sh"
 curl_get https://raw.githubusercontent.com/jordantrc/enumeration/master/http-security-check.sh ${local_bin_dir}"/http-security-check.sh"
 
-chmod +x ${local_bin_dir}"/*.sh"
+cd ${local_bin_dir}
+chown $USER ./*
+chmod +x *.sh
 
 # other people's work
-# SecLists - https://github.com/danielmiessler/SecLists
-echo "[+] Installing SecLists"
-curl_get https://github.com/danielmiessler/SecLists/archive/master.zip /tmp/SecLists.zip
-cd /tmp && sudo unzip /tmp/SecLists.zip
-sudo mv /tmp/SecLists-master/* ${seclists_dir}
-sudo rm -f /tmp/SecLists.zip
-
 # RDPScan
 echo "[+] Installing RDPScan by Robert Graham"
 sudo mkdir -p ${utils_dir}"/rdpscan/src"
 zip_file_location=${utils_dir}"/downloads/rdpscan.zip"
 curl_get https://github.com/robertdavidgraham/rdpscan/archive/master.zip ${zip_file_location}
-
 # unzip to src directory
 sudo unzip ${zip_file_location} -d ${utils_dir}"/rdpscan/src"
 cd ${utils_dir}"/rdpscan/src/rdpscan-master"
