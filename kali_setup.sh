@@ -128,6 +128,7 @@ latest_uri=$(curl -L -Ss https://github.com/ropnop/kerbrute/releases/latest \
 curl_get "https://www.github.com"${latest_uri} ${utils_dir}"/downloads/kerbrute_linux_amd64"
 sudo mkdir ${utils_dir}"/kerbrute"
 sudo mv ${utils_dir}"/downloads/kerbrute_linux_amd64" ${utils_dir}"/kerbrute/kerbrute"
+sudo chmod +x ${utils_dir}"/kerbrute/kerbrute"
 
 
 # Setup openvas
