@@ -72,10 +72,12 @@ curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/scan_h
 curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/false_positive_test.sh ${local_bin_dir}"/false_positive_test.sh"
 curl_get https://raw.githubusercontent.com/jordantrc/port_scanners/master/pipa-route.sh ${local_bin_dir}"/pipa-route.sh"
 curl_get https://raw.githubusercontent.com/jordantrc/enumeration/master/http-security-check.sh ${local_bin_dir}"/http-security-check.sh"
+curl_get https://raw.githubusercontent.com/jordantrc/pentesting/master/utils/llog.sh ${local_bin_dir}"/llog"
 
 cd ${local_bin_dir}
 chown $USER ./*
 chmod +x *.sh
+chmod +x llog
 
 # other people's work
 # RDPScan
