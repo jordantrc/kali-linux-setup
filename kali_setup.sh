@@ -79,6 +79,19 @@ chown $USER ./*
 chmod +x *.sh
 chmod +x llog
 
+# tmux configuration
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+cat <<EOF > ~/.tmux.conf
+set -g history-limit 50000
+
+# list of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-logging'
+
+# initialize tmux plugin manager
+run '~/.tmux/plugins/tpm/tpm'
+EOF
+
 # other people's work
 # RDPScan
 echo "[+] Installing RDPScan by Robert Graham"
@@ -132,6 +145,17 @@ sudo mkdir ${utils_dir}"/kerbrute"
 sudo mv ${utils_dir}"/downloads/kerbrute_linux_amd64" ${utils_dir}"/kerbrute/kerbrute"
 sudo chmod +x ${utils_dir}"/kerbrute/kerbrute"
 
+# sipscan
+echo "[+] Installing SIPPTS"
+cd ${utils_dir}"/downloads"
+git clone https://github.com/Pepelux/sippts.git
+cpan -i IO:Socket:Timeout
+cpan -i NetAddr:IP
+cpan -i String:HexConvert
+cpan -i Net:Pcap
+cpan -i Net::Address::IP::Local
+cpan -i DBD::SQLite
+sudo ln -s ${utils_dir}"/downloads/sippts" ${utils_dir}"/sippts"
 
 # Setup openvas
 echo "[*] setting up OpenVAS"
@@ -139,3 +163,8 @@ sudo greenbone-nvt-sync &
 sudo greenbone-scapdata-sync &
 sudo greenbone-certdata-sync &
 wait
+
+# instructions
+echo "FINAL INSTRUCTIONS:"
+echo "1. Update tmux if open: tmux source ~/.tmux.conf"
+echo "2. Install tmux plugins: <prefix> + I"
